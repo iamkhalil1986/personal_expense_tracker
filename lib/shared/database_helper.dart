@@ -130,7 +130,7 @@ class DatabaseHelper {
   }
 
   //************************ Prefill data for initial run ***************************/
-//This is only one time activity
+  //This is only one time activity
   Future<void> _prefillCategoriesAndExpenseRecordsInDatabase(
       Database db) async {
     // Prefill some categories for initial run
