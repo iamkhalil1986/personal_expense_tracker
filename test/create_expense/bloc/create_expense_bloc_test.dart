@@ -14,6 +14,7 @@ void testCreateExpenseBloc() {
   group('CreateExpenseBloc tests', () {
     setUpAll(() {
       registerFallbackValue(MockDataProvider.travelExpense);
+      registerFallbackValue(MockDataProvider.shoppingCategory);
     });
 
     test('test loadCreateExpense', () {
