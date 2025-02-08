@@ -3,8 +3,12 @@ import 'model/entity/create_expense_entity_test.dart';
 import 'model/view_model/create_expense_view_model_test.dart';
 import 'ui/create_expense_widget_test.dart';
 
-//Running test from this function takes less time
 void main() {
+  createExpenseTest();
+}
+
+//Running test from this function takes less time
+void createExpenseTest() {
   //Bloc test
   testCreateExpenseBloc();
   //Model test

@@ -1,78 +1,70 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:personal_expense_tracker/shared/model/db_model/expense_dto.dart';
 
-class ExpenseDto extends Equatable {
-  final int? expenseId;
-  final double amount;
-  final String expenseDate;
-  final String expenseDescription;
-  final int categoryId;
-  final String categoryName;
+void main() {
+  testExpenseDto();
+}
 
-  const ExpenseDto({
-    this.expenseId,
-    required this.amount,
-    required this.expenseDate,
-    required this.expenseDescription,
-    required this.categoryId,
-    required this.categoryName,
+void testExpenseDto() {
+  group('ExpenseDto tests', () {
+    test('ExpenseDto merge test', () {
+      ExpenseDto oldObject = ExpenseDto(
+          expenseId: 1,
+          expenseDescription: "Test Description",
+          amount: 200.00,
+          expenseDate: "2024-02-07",
+          categoryId: 1,
+          categoryName: "Accommodation");
+      ExpenseDto newObject = oldObject.merge();
+      expect(oldObject == newObject, true);
+
+      newObject = newObject.merge(amount: 300.00);
+      expect(newObject.amount, 300.00);
+      expect(oldObject == newObject, false);
+    });
+
+    test('ExpenseDto props test', () {
+      ExpenseDto expenseDto = ExpenseDto(
+          expenseId: 1,
+          expenseDescription: "Test Description",
+          amount: 200.00,
+          expenseDate: "2024-02-07",
+          categoryId: 1,
+          categoryName: "Accommodation");
+      expect(expenseDto.props,
+          [1, 200.00, "2024-02-07", "Test Description", 1, "Accommodation"]);
+    });
+
+    test('ExpenseDto fromJson test', () {
+      ExpenseDto expenseDto = ExpenseDto.fromJson({
+        "expense_id": 1,
+        "expense_description": "Test Description",
+        "amount": 200.00,
+        "expense_date": "2024-02-07",
+        "category_id": 1,
+        "category_name": "Accommodation"
+      });
+      expect(expenseDto.props,
+          [1, 200.00, "2024-02-07", "Test Description", 1, "Accommodation"]);
+    });
+
+    test('ExpenseDto toJson test', () {
+      ExpenseDto expenseDto = ExpenseDto(
+          expenseId: 1,
+          expenseDescription: "Test Description",
+          amount: 200.00,
+          expenseDate: "2024-02-07",
+          categoryId: 1,
+          categoryName: "Accommodation");
+
+      Map jsonObject = {
+        "expense_id": 1,
+        "expense_description": "Test Description",
+        "amount": 200.00,
+        "expense_date": "2024-02-07",
+        "category_id": 1
+      };
+      expect(expenseDto.toJson(), jsonObject);
+    });
   });
-
-  factory ExpenseDto.defaults() {
-    return const ExpenseDto(
-      expenseId: 0,
-      amount: 0.0,
-      expenseDate: '',
-      expenseDescription: '',
-      categoryId: 0,
-      categoryName: '',
-    );
-  }
-
-  factory ExpenseDto.fromJson(Map<String, dynamic> json) {
-    return ExpenseDto(
-      expenseId: json['expense_id'],
-      amount: json['amount'] ?? 0.0,
-      expenseDate: json['expense_date'],
-      expenseDescription: json['expense_description'],
-      categoryId: json['category_id'],
-      categoryName: json['category_name'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'expense_id': expenseId,
-      'amount': amount,
-      'expense_date': expenseDate,
-      'expense_description': expenseDescription,
-      'category_id': categoryId
-    };
-  }
-
-  ExpenseDto merge(
-      {int? expenseId,
-      double? amount,
-      String? expenseDate,
-      String? expenseDescription,
-      int? categoryId,
-      String? categoryName}) {
-    return ExpenseDto(
-      expenseId: expenseId ?? this.expenseId,
-      amount: amount ?? this.amount,
-      expenseDate: expenseDate ?? this.expenseDate,
-      expenseDescription: expenseDescription ?? this.expenseDescription,
-      categoryId: categoryId ?? this.categoryId,
-      categoryName: categoryName ?? this.categoryName,
-    );
-  }
-
-  @override
-  List<Object?> get props => [
-        expenseId,
-        amount,
-        expenseDate,
-        expenseDescription,
-        categoryId,
-        categoryName
-      ];
 }

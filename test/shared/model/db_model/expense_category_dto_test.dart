@@ -1,25 +1,22 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:personal_expense_tracker/shared/model/db_model/expense_category_dto.dart';
 
-class ExpenseCategoryDto extends Equatable {
-  final int categoryId;
-  final String categoryName;
+void main() {
+  testExpenseCategoryDto();
+}
 
-  const ExpenseCategoryDto(
-      {required this.categoryId, required this.categoryName});
+void testExpenseCategoryDto() {
+  group('ExpenseCategoryDto tests', () {
+    test('ExpenseCategoryDto props test', () {
+      ExpenseCategoryDto expenseCategoryDto =
+          ExpenseCategoryDto(categoryId: 1, categoryName: "Accommodation");
+      expect(expenseCategoryDto.props, [1, "Accommodation"]);
+    });
 
-  factory ExpenseCategoryDto.fromJson(Map<String, dynamic> json) {
-    return ExpenseCategoryDto(
-      categoryId: json['category_id'],
-      categoryName: json['category_name'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'category_name': categoryName,
-    };
-  }
-
-  @override
-  List<Object?> get props => [categoryId, categoryName];
+    test('ExpenseCategoryDto fromJson test', () {
+      ExpenseCategoryDto expenseCategoryDto = ExpenseCategoryDto.fromJson(
+          {"category_id": 1, "category_name": "Accommodation"});
+      expect(expenseCategoryDto.props, [1, "Accommodation"]);
+    });
+  });
 }
