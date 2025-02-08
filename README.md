@@ -89,7 +89,7 @@ This app make use of simple BLOC pattern to implement all business logics inside
 ```
 
 ### BLOC
-BLOC stands for business logic component. As name suggest it performs
+BLOC stands for business logic component. As name suggest it performs all business logic operations init on the data retrieved from external repository or database. It process the data from external dependencies, prepare  and send ViewModel to Presenter using StreamControllers. 
 
 ### Feature Widget :
 This is widget which initiates loading of screen and wrapping presenter with BlocProvider which will provide BLOC access to all its child widgets.
@@ -142,3 +142,18 @@ dev_dependencies:
   mocktail: ^1.0.4
 ```
 
+## Commands for running application and execute unit/widget/integration tests
+Once dependencies are fetched using "flutter pub get", run below command to run application.
+```
+flutter run 
+```
+
+We have prepared a test suite for running all test cases together from a single file ./test/personal_expense_tracker_test.dart and can run below command to run tests. This approach is very helpfull and faster to run all test together instead of running for entire /test folder. 
+```
+flutter test ./test/personal_expense_tracker_test.dart 
+```
+
+Inorder to run integration test, run below command
+```
+flutter test integration_test/personal_expense_tracker_test.dart
+```
